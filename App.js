@@ -6,6 +6,10 @@ import Home from 'Pages/Home';
 import MakePrediction from 'Pages/MakePrediction';
 import MakePredictionProcessing from 'Pages/MakePredictionProcessing';
 import MakePredictionResults from 'Pages/MakePredictionResults';
+import ModelPrediction from 'Pages/ModelPrediction';
+import ModelPredictionProcessing from 'Pages/ModelPredictionProcessing';
+import ModelPredictionResults from 'Pages/ModelPredictionResults';
+import AR from 'Pages/AR';
 
 const PageStack = createStackNavigator();
 
@@ -23,6 +27,16 @@ export default function App() {
           name="MakePredictionResults"
           component={MakePredictionResults}
         />
+        <PageStack.Screen name="ModelPrediction" component={ModelPrediction} />
+        <PageStack.Screen
+          name="ModelPredictionProcessing"
+          component={ModelPredictionProcessing}
+        />
+        <PageStack.Screen
+          name="ModelPredictionResults"
+          component={ModelPredictionResults}
+        />
+        <PageStack.Screen name="AR" component={AR} />
       </PageStack.Navigator>
     </NavigationContainer>
   );

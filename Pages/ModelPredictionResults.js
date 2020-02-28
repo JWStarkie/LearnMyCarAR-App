@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, View, Text } from 'react-native';
 import Confirmation from 'Components/Confirmation';
 
-export default function MakePredictionResults({ route, navigation }) {
+export default function ModelPredictionResults({ route, navigation }) {
   const { imageUrl } = route.params;
   const { prediction } = route.params;
 

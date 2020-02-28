@@ -18,8 +18,9 @@ class Confirmation extends Component {
   }
 
   render() {
-    const predictedMake = this.props.prediction;
+    const predictionString = this.props.prediction;
     const imageUrl = this.props.imageUrl;
+    const navigation = this.props.navig;
     console.log('ImageUrl = ' + imageUrl);
     console.log(imageUrl);
     return (
@@ -45,7 +46,7 @@ class Confirmation extends Component {
         <View style={styles.topSectionView}>
           <Image style={styles.imagePreview} source={{ uri: imageUrl }} />
           <Text style={styles.textStyle}>
-            Is your vehicle a {predictedMake}?
+            Is your vehicle a {predictionString}?
           </Text>
         </View>
         <View style={styles.bottomSectionView}>
@@ -57,7 +58,7 @@ class Confirmation extends Component {
                 this.setisModalVisible(!this.state.isModalVisible);
               }}>
               <Image
-                source={require('assets/no-icon.png')}
+                source={require('assets/no-icon-black.png')}
                 style={{ width: 50, height: 50 }}
               />
               <View style={{ width: 10 }} />
@@ -66,9 +67,22 @@ class Confirmation extends Component {
           </View>
           <View style={{ width: 20 }} />
           <View style={styles.buttonViewStyles}>
-            <TouchableOpacity style={styles.yesButtonStyle} activeOpacity={0.5}>
+            <TouchableOpacity
+              style={styles.yesButtonStyle}
+              activeOpacity={0.5}
+              onPress={() => {
+                let destinationPage =
+                  predictionString === 'Ford' ||
+                  predictionString === 'Volkswagen'
+                    ? 'ModelPrediction'
+                    : 'AR';
+                navigation.navigate(destinationPage, {
+                  navig: navigation,
+                  predictionMake: predictionString,
+                });
+              }}>
               <Image
-                source={require('assets/yes-icon.png')}
+                source={require('assets/yes-icon-white.png')}
                 style={{ width: 60, height: 60 }}
               />
               <View style={{ width: 10 }} />

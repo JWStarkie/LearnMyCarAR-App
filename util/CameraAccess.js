@@ -23,7 +23,6 @@ export default class CameraAccess extends Component {
     hasPermission: 'granted' === PermissionsAndroid.RESULTS.GRANTED,
     type: RNCamera.Constants.Type.back,
     processing: null,
-    makePredicted: false,
   };
 
   async componentDidMount() {
@@ -59,9 +58,6 @@ export default class CameraAccess extends Component {
   }
 
   render() {
-    if (this.props.makePredicted) {
-      this.setState({ makePredicted: true });
-    }
     const { hasPermission } = this.state;
     console.log(hasPermission);
     if (hasPermission === null) {
@@ -116,7 +112,7 @@ export default class CameraAccess extends Component {
                 />
               ) : null}
               <Image
-                source={require('assets/camera-icon-grey.png')}
+                source={require('assets/camera-icon-white.png')}
                 style={styles.iconSize}
               />
             </TouchableOpacity>
@@ -127,20 +123,19 @@ export default class CameraAccess extends Component {
   }
 
   _handleclick() {
-    console.log('makePredicted = ' + this.state.makePredicted);
-    if (!this.state.makePredicted) {
-      // this.takePictureMake(this.props.navig);
+    console.log('makePredicted = ' + this.props.makePredicted);
+    if (!this.props.makePredicted) {
       this.setState({ processing: true });
-      CameraFunctions.takePictureMake(
+      CameraFunctions.takePictureMake(this.props.navig, this.camera);
+      console.log('takePictureMake');
+    } else {
+      this.setState({ processing: true });
+      CameraFunctions.takePictureModel(
         this.props.navig,
-        this.props.trainNewVehicle,
+        this.props.vehicleMake,
         this.camera,
       );
-      console.log('takepicture');
-      // Thing to be done next - modal pop-up
-    } else {
-      // this.takePictureModel();
-      console.log('takepicture2');
+      console.log('takePictureModel');
     }
   }
 }
