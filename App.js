@@ -9,14 +9,17 @@ import MakePredictionResults from 'Pages/MakePredictionResults';
 import ModelPrediction from 'Pages/ModelPrediction';
 import ModelPredictionProcessing from 'Pages/ModelPredictionProcessing';
 import ModelPredictionResults from 'Pages/ModelPredictionResults';
+import UploadUserChoice from 'Pages/UploadUserChoice';
+import UploadProcessing from 'Pages/UploadProcessing';
 import AR from 'Pages/AR';
+import SorryPage from 'Pages/SorryPage';
 
 const PageStack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <PageStack.Navigator initialRouteName="Home" headerMode="none">
+      <PageStack.Navigator initialRouteName="SorryPage" headerMode="none">
         <PageStack.Screen name="Home" component={Home} />
         <PageStack.Screen name="MakePrediction" component={MakePrediction} />
         <PageStack.Screen
@@ -36,6 +39,15 @@ export default function App() {
           name="ModelPredictionResults"
           component={ModelPredictionResults}
         />
+        <PageStack.Screen
+          name="UploadUserChoice"
+          component={UploadUserChoice}
+        />
+        <PageStack.Screen
+          name="UploadProcessing"
+          component={UploadProcessing}
+        />
+        <PageStack.Screen name="SorryPage" component={SorryPage} />
         <PageStack.Screen name="AR" component={AR} />
       </PageStack.Navigator>
     </NavigationContainer>

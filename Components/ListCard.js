@@ -34,8 +34,10 @@ const styles = StyleSheet.create({
   },
   cardTextContent: {
     flex: 2,
-    marginHorizontal: 18,
+    marginHorizontal: 25,
     marginVertical: 20,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
   },
   cardImageContent: {
     flex: 1,

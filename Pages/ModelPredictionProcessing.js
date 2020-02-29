@@ -92,5 +92,3 @@ class Timer extends Component {
     }
   }
 }
-
-// class Blink extends Component {}

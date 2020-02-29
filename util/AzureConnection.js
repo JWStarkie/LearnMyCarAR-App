@@ -30,7 +30,6 @@ async function handleAzure(imageData, navigation) {
   navigation.navigate('MakePredictionResults', {
     imageUrl: response1.data.link,
     prediction: response2.predictions[0].tagName,
-    navig: navigation,
   });
 }
 
@@ -90,7 +89,6 @@ async function handleAzureModels(imageData, vehicleMake, navigation) {
     navigation.navigate('ModelPredictionResults', {
       imageUrl: response1.data.link,
       prediction: response2.predictions[0].tagName,
-      navig: navigation,
     });
   }
 }
@@ -117,12 +115,25 @@ function getImageTags() {
     });
 }
 
-function uploadImageForTraining(ford_tag, vw_tag) {
-  console.log('Ford: ' + ford_tag + ' VW: ' + vw_tag);
+function uploadImageForTrainingMake(tagKey, navigation) {
+  console.log('uploadImageForTrainingMake');
+  console.log('This key is = ' + tagKey);
+}
+
+function uploadImageForTrainingFordModel(tagKey, navigation) {
+  console.log('uploadImageForTrainingFordModel');
+  console.log('This key is = ' + tagKey);
+}
+
+function uploadImageForTrainingVwModel(tagKey, navigation) {
+  console.log('uploadImageForTrainingVwModel');
+  console.log('This key is = ' + tagKey);
 }
 
 export default {
   handleAzure,
   handleAzureModels,
-  uploadImageForTraining,
+  uploadImageForTrainingMake,
+  uploadImageForTrainingFordModel,
+  uploadImageForTrainingVwModel,
 };
