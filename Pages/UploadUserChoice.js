@@ -8,29 +8,17 @@ import {
 } from 'react-native';
 import Data from 'app-data.json';
 import ListCard from 'Components/ListCard';
-import AzureConnection from 'util/AzureConnection';
+import FinalProcessing from 'Pages/FinalProcessing';
 
 export default function ImageUploadProcessing({ route, navigation }) {
-  /* console.log(Data.imageTagsMakes[0].name);
+  console.log(Data.imageTagsMakes[0].name);
   const { currentChoice } = route.params;
-  const { predictedMake } = route.params; */
-  const currentChoice = true;
-  const predictedMake = 'Ford';
+  const { imageUrl } = route.params;
+  const { vehicleMake } = route.params;
+
   let ListData =
     currentChoice === false ? Data.imageTagsMakes : Data.imageTagsVwModels;
   // Need some if condition for if true and === Ford or VW for Data.imageTagsFordModels
-
-  function _onTapItem(key, currentChoice, predictedMake) {
-    if (currentChoice === false) {
-      AzureConnection.uploadImageForTrainingMake(key, navigation);
-    } else if (currentChoice === true) {
-      if (predictedMake === 'Volkswagen') {
-        AzureConnection.uploadImageForTrainingVwModel(key, navigation);
-      } else if (predictedMake === 'Ford') {
-        AzureConnection.uploadImageForTrainingFordModel(key, navigation);
-      }
-    }
-  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -45,7 +33,15 @@ export default function ImageUploadProcessing({ route, navigation }) {
           data={ListData}
           renderItem={({ item }) => (
             <TouchableHighlight
-              onPress={() => _onTapItem(item.id, currentChoice, predictedMake)}>
+              onPress={() =>
+                FinalProcessing(
+                  item.id,
+                  currentChoice,
+                  vehicleMake,
+                  imageUrl,
+                  navigation,
+                )
+              }>
               <ListCard>Name = {item.name}</ListCard>
             </TouchableHighlight>
           )}

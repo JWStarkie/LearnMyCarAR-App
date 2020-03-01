@@ -10,8 +10,9 @@ async function takePictureMake(navigation, camera) {
       })
       .then(data => {
         console.log(data.uri);
-        navigation.navigate('MakePredictionProcessing', {
+        navigation.navigate('UploadProcessing', {
           dataPass: data.base64,
+          mode: 'Make',
         });
       })
       .catch(error => {
@@ -30,9 +31,10 @@ async function takePictureModel(navigation, vehicleMake, camera) {
       })
       .then(data => {
         console.log(data.uri);
-        navigation.navigate('ModelPredictionProcessing', {
+        navigation.navigate('UploadProcessing', {
           dataPass: data.base64,
           vehicleMake: vehicleMake,
+          mode: 'Model',
         });
       })
       .catch(error => {

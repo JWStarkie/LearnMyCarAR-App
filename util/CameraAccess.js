@@ -14,10 +14,6 @@ import { RNCamera } from 'react-native-camera';
 
 import CameraFunctions from './CameraFunctions';
 
-// import AzureConnection from 'utils/AzureConnection.js';
-
-// import NavigationService from './NavigationService';
-
 export default class CameraAccess extends Component {
   state = {
     hasPermission: 'granted' === PermissionsAndroid.RESULTS.GRANTED,
@@ -92,7 +88,19 @@ export default class CameraAccess extends Component {
             type={this.type}
             captureAudio={false}>
             <View style={styles.overlayStyle}>
-              <View style={styles.overlayHeaderFooter} />
+              <View style={styles.overlayHeaderFooter}>
+                {!this.props.makePredicted ? (
+                  <Text style={styles.instructionText}>
+                    Please position the logo on your steering wheel inside the
+                    square and press the camera icon below:
+                  </Text>
+                ) : (
+                  <Text style={styles.instructionText}>
+                    Please position your middle console inside the square and
+                    press the camera icon below:
+                  </Text>
+                )}
+              </View>
               <View style={styles.overlayMiddle}>
                 <View style={styles.overlayMiddleSides} />
                 <View style={styles.overlayTransparent} />
@@ -151,6 +159,12 @@ const styles = StyleSheet.create({
     color: '#333',
     marginBottom: 5,
   },
+  instructionText: {
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 20,
+    alignSelf: 'center',
+  },
   overlayStyle: {
     position: 'absolute',
     left: 0,
@@ -178,6 +192,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     backgroundColor: 'rgba(0,0,0,0.6)',
+    justifyContent: 'center',
   },
   cameraView: {
     flex: 1,

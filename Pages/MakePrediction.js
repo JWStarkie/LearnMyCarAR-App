@@ -4,7 +4,7 @@ import CameraAccess from 'util/CameraAccess';
 import { useIsFocused } from '@react-navigation/native';
 
 export default function MakePrediction({ navigation }) {
-  // This hook returns `true` if the screen is focused, `false` otherwise
+  // This hook returns `true` if the screen is focused, otherwise it's `false`
   const isFocused = useIsFocused();
   if (isFocused) {
     return (

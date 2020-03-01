@@ -1,35 +1,32 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, View, Text } from 'react-native';
+import { StyleSheet, ActivityIndicator, View, Text } from 'react-native';
 import AzureConnection from 'util/AzureConnection';
 
-export default function MakePredictionProcessing({ route, navigation }) {
-  const { dataPass } = route.params;
-  AzureConnection.handleAzure(dataPass, navigation);
+export default function UploadingProcessing({ route, navigation }) {
+  const { mode } = route.params;
+  if (mode === 'Make') {
+    const { dataPass } = route.params;
+    AzureConnection.handleAzure(dataPass, navigation);
+  } else if (mode === 'Model') {
+    const { dataPass } = route.params;
+    const { vehicleMake } = route.params;
+    AzureConnection.handleAzureModels(dataPass, vehicleMake, navigation);
+  }
+
   return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-      }}>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-        }}>
-        <Text
-          style={{
-            textAlign: 'center',
-            fontSize: 20,
-            color: '#3A88E9',
-            paddingBottom: 50,
-          }}>
+    <View style={styles.mainViewStyle}>
+      <View style={styles.topView}>
+        <Text style={styles.textStyle}>
           We are processing your image to make a prediction. {'\n'}
           {'\n'}Please wait whilst we do all of the hard work behind the scenes!
         </Text>
       </View>
-      <Timer />
+      <View style={{ flex: 1 }}>
+        <ActivityIndicator size="large" color="#0000ff" animating={true} />
+      </View>
+      <View style={styles.timerView}>
+        <Timer />
+      </View>
     </View>
   );
 }
@@ -61,33 +58,36 @@ class Timer extends Component {
   }
 
   render() {
-    if (!this.state.timerReached) {
+    if (this.state.timerReached) {
       return (
-        <View style={{ flex: 1, marginBottom: 100 }}>
-          <ActivityIndicator size="large" color="#0000ff" animating={true} />
-        </View>
+        <Text style={styles.textStyle}>
+          Just a few more seconds and we'll be ready!
+        </Text>
       );
     } else {
-      return (
-        <View style={{ flex: 1, marginBottom: 100 }}>
-          <ActivityIndicator size="large" color="#0000ff" animating={true} />
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-            }}>
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 20,
-                color: '#3A88E9',
-                paddingBottom: 50,
-              }}>
-              Just a few more seconds and we'll be ready!
-            </Text>
-          </View>
-        </View>
-      );
+      return <View />;
     }
   }
 }
+
+const styles = StyleSheet.create({
+  textStyle: {
+    textAlign: 'center',
+    fontSize: 20,
+    color: '#3A88E9',
+    paddingBottom: 50,
+  },
+  topView: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  mainViewStyle: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  timerView: {
+    flex: 1,
+  },
+});

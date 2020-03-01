@@ -115,19 +115,100 @@ function getImageTags() {
     });
 }
 
-function uploadImageForTrainingMake(tagKey, navigation) {
+const uploadUrlMake =
+  END_POINT +
+  '/customvision/v3.2/training/projects/' +
+  PROJECT_ID +
+  '/images/urls';
+async function uploadImageForTrainingMake(tagKey, imageUrl) {
   console.log('uploadImageForTrainingMake');
   console.log('This key is = ' + tagKey);
+  fetch(uploadUrlMake, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Training-Key': auth_key,
+    },
+    body: JSON.stringify({
+      images: [
+        {
+          url: imageUrl,
+          tagIds: [tagKey],
+        },
+      ],
+    }),
+  })
+    .then(response => response.json())
+    .then(responseJson => {
+      console.log(responseJson);
+    })
+    .catch(error => {
+      console.error(error);
+    });
 }
 
-function uploadImageForTrainingFordModel(tagKey, navigation) {
+const uploadUrlFordModel =
+  END_POINT +
+  '/customvision/v3.2/training/projects/' +
+  PROJECT_ID +
+  '/images/urls';
+async function uploadImageForTrainingFordModel(tagKey, imageUrl) {
   console.log('uploadImageForTrainingFordModel');
   console.log('This key is = ' + tagKey);
+  fetch(uploadUrlFordModel, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Training-Key': auth_key,
+    },
+    body: JSON.stringify({
+      images: [
+        {
+          url: imageUrl,
+          tagIds: [tagKey],
+        },
+      ],
+    }),
+  })
+    .then(response => response.json())
+    .then(responseJson => {
+      console.log(responseJson);
+    })
+    .catch(error => {
+      console.error(error);
+    });
 }
 
-function uploadImageForTrainingVwModel(tagKey, navigation) {
+const uploadUrlVwModel =
+  END_POINT +
+  '/customvision/v3.2/training/projects/' +
+  PROJECT_ID +
+  '/images/urls';
+async function uploadImageForTrainingVwModel(tagKey, imageUrl) {
   console.log('uploadImageForTrainingVwModel');
   console.log('This key is = ' + tagKey);
+  fetch(uploadUrlVwModel, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Training-Key': auth_key,
+    },
+    body: JSON.stringify({
+      images: [
+        {
+          url: imageUrl,
+          tagIds: [tagKey],
+        },
+      ],
+    }),
+  })
+    .then(response => response.json())
+    .then(responseJson => {
+      console.log(responseJson);
+    })
+    .catch(error => {
+      console.error(error);
+    });
 }
 
 export default {

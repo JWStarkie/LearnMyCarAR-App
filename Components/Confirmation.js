@@ -57,7 +57,10 @@ class Confirmation extends Component {
                 <View style={styles.modalButtonViewStyles}>
                   <TouchableOpacity
                     style={styles.noButtonStyle}
-                    activeOpacity={0.5}>
+                    activeOpacity={0.5}
+                    onPress={() => {
+                      navigation.navigate('SorryPage', { didUpload: false });
+                    }}>
                     <Image
                       source={require('assets/no-icon-black.png')}
                       style={styles.imageStyles}
@@ -76,7 +79,7 @@ class Confirmation extends Component {
                       console.log(this.state.currentChoice);
                       navigation.navigate('UploadUserChoice', {
                         currentChoice: this.state.currentChoice,
-                        predictedMake: predictionString,
+                        vehicleMake: predictionString,
                         imageUrl: imageUrl,
                       });
                     }}>
@@ -128,7 +131,6 @@ class Confirmation extends Component {
                     ? 'ModelPrediction'
                     : 'AR';
                 navigation.navigate(destinationPage, {
-                  navig: navigation,
                   predictionMake: predictionString,
                 });
               }}>
