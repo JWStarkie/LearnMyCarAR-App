@@ -3,16 +3,19 @@ import { Button, View, Text } from 'react-native';
 import CameraAccess from 'util/CameraAccess';
 import { useIsFocused } from '@react-navigation/native';
 
-export default function MakePrediction({ navigation }) {
-  // This hook returns `true` if the screen is focused, otherwise it's `false`
+export default function ModelPrediction({ route, navigation }) {
+  // This hook returns `true` if the screen is focused, `false` otherwise
   const isFocused = useIsFocused();
+
+  const { predictionMake } = route.params;
+
   if (isFocused) {
     return (
       <View style={{ flex: 1 }}>
         <CameraAccess
-          makePredicted={false}
+          makePredicted={true}
+          vehicleMake={predictionMake}
           navig={navigation}
-          trainNewVehicle={false}
         />
       </View>
     );

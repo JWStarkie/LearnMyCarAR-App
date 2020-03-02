@@ -14,16 +14,11 @@ import { RNCamera } from 'react-native-camera';
 
 import CameraFunctions from './CameraFunctions';
 
-// import AzureConnection from 'utils/AzureConnection.js';
-
-// import NavigationService from './NavigationService';
-
 export default class CameraAccess extends Component {
   state = {
     hasPermission: 'granted' === PermissionsAndroid.RESULTS.GRANTED,
     type: RNCamera.Constants.Type.back,
     processing: null,
-    makePredicted: false,
   };
 
   async componentDidMount() {
@@ -59,9 +54,6 @@ export default class CameraAccess extends Component {
   }
 
   render() {
-    if (this.props.makePredicted) {
-      this.setState({ makePredicted: true });
-    }
     const { hasPermission } = this.state;
     console.log(hasPermission);
     if (hasPermission === null) {
@@ -96,7 +88,19 @@ export default class CameraAccess extends Component {
             type={this.type}
             captureAudio={false}>
             <View style={styles.overlayStyle}>
-              <View style={styles.overlayHeaderFooter} />
+              <View style={styles.overlayHeaderFooter}>
+                {!this.props.makePredicted ? (
+                  <Text style={styles.instructionText}>
+                    Please position the logo on your steering wheel inside the
+                    square and press the camera icon below:
+                  </Text>
+                ) : (
+                  <Text style={styles.instructionText}>
+                    Please position your middle console inside the square and
+                    press the camera icon below:
+                  </Text>
+                )}
+              </View>
               <View style={styles.overlayMiddle}>
                 <View style={styles.overlayMiddleSides} />
                 <View style={styles.overlayTransparent} />
@@ -116,7 +120,7 @@ export default class CameraAccess extends Component {
                 />
               ) : null}
               <Image
-                source={require('assets/camera-icon-grey.png')}
+                source={require('assets/camera-icon-white.png')}
                 style={styles.iconSize}
               />
             </TouchableOpacity>
@@ -127,20 +131,19 @@ export default class CameraAccess extends Component {
   }
 
   _handleclick() {
-    console.log('makePredicted = ' + this.state.makePredicted);
-    if (!this.state.makePredicted) {
-      // this.takePictureMake(this.props.navig);
+    console.log('makePredicted = ' + this.props.makePredicted);
+    if (!this.props.makePredicted) {
       this.setState({ processing: true });
-      CameraFunctions.takePictureMake(
+      CameraFunctions.takePictureMake(this.props.navig, this.camera);
+      console.log('takePictureMake');
+    } else {
+      this.setState({ processing: true });
+      CameraFunctions.takePictureModel(
         this.props.navig,
-        this.props.trainNewVehicle,
+        this.props.vehicleMake,
         this.camera,
       );
-      console.log('takepicture');
-      // Thing to be done next - modal pop-up
-    } else {
-      // this.takePictureModel();
-      console.log('takepicture2');
+      console.log('takePictureModel');
     }
   }
 }
@@ -155,6 +158,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333',
     marginBottom: 5,
+  },
+  instructionText: {
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 20,
+    alignSelf: 'center',
   },
   overlayStyle: {
     position: 'absolute',
@@ -183,6 +192,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     backgroundColor: 'rgba(0,0,0,0.6)',
+    justifyContent: 'center',
   },
   cameraView: {
     flex: 1,
