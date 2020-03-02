@@ -16,9 +16,25 @@ export default function ImageUploadProcessing({ route, navigation }) {
   const { imageUrl } = route.params;
   const { vehicleMake } = route.params;
 
-  let ListData =
-    currentChoice === false ? Data.imageTagsMakes : Data.imageTagsVwModels;
-  // Need some if condition for if true and === Ford or VW for Data.imageTagsFordModels
+  console.log(currentChoice + ' = currentChoice');
+  console.log(imageUrl + ' = imageUrl');
+  console.log(vehicleMake + ' = vehicleMake');
+
+  const ListData = getData();
+
+  console.log(ListData);
+
+  function getData() {
+    if (currentChoice === false) {
+      return Data.imageTagsMakes;
+    } else if (currentChoice === true) {
+      if (vehicleMake === 'Focus' || vehicleMake === 'Fiesta') {
+        return Data.imageTagsFordModels;
+      } else if (vehicleMake === 'Polo' || vehicleMake === 'Golf') {
+        return Data.imageTagsVwModels;
+      }
+    }
+  }
 
   return (
     <View style={{ flex: 1 }}>

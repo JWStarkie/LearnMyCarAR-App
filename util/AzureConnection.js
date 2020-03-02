@@ -8,6 +8,8 @@ import {
   IMGUR_CLIENT_ID,
   PROJECT_ID_2,
   ITERATION_ID_2,
+  PROJECT_ID_3,
+  ITERATION_ID_3,
 } from 'react-native-dotenv';
 
 const imgur_upload_url = 'https://api.imgur.com/3/upload';
@@ -76,10 +78,26 @@ const predi_url_VW =
   ITERATION_ID_2 +
   '/url';
 
+const predi_url_Ford =
+  END_POINT +
+  'customvision/v3.0/Prediction/' +
+  PROJECT_ID_3 +
+  '/classify/iterations/' +
+  ITERATION_ID_3 +
+  '/url';
+
 async function handleAzureModels(imageData, vehicleMake, navigation) {
   if (vehicleMake === 'Ford') {
-    /* Add in Ford stuff here */
-    console.warn('Ford Model yet to be done, but at least this works!!');
+    let response1 = await imgurImageUpload(imageData);
+    console.log(response1.data.link);
+    console.log(predi_url_Ford);
+    let response2 = await azurePrediction(response1.data.link, predi_url_Ford);
+    console.log(response2);
+    navigation.navigate('ModelPredictionResults', {
+      imageUrl: response1.data.link,
+      prediction: response2.predictions[0].tagName,
+      previousPrediction: vehicleMake,
+    });
   } else if (vehicleMake === 'Volkswagen') {
     let response1 = await imgurImageUpload(imageData);
     console.log(response1.data.link);
@@ -89,6 +107,7 @@ async function handleAzureModels(imageData, vehicleMake, navigation) {
     navigation.navigate('ModelPredictionResults', {
       imageUrl: response1.data.link,
       prediction: response2.predictions[0].tagName,
+      previousPrediction: vehicleMake,
     });
   }
 }
@@ -150,7 +169,7 @@ async function uploadImageForTrainingMake(tagKey, imageUrl) {
 const uploadUrlFordModel =
   END_POINT +
   '/customvision/v3.2/training/projects/' +
-  PROJECT_ID +
+  PROJECT_ID_3 +
   '/images/urls';
 async function uploadImageForTrainingFordModel(tagKey, imageUrl) {
   console.log('uploadImageForTrainingFordModel');
@@ -182,7 +201,7 @@ async function uploadImageForTrainingFordModel(tagKey, imageUrl) {
 const uploadUrlVwModel =
   END_POINT +
   '/customvision/v3.2/training/projects/' +
-  PROJECT_ID +
+  PROJECT_ID_2 +
   '/images/urls';
 async function uploadImageForTrainingVwModel(tagKey, imageUrl) {
   console.log('uploadImageForTrainingVwModel');

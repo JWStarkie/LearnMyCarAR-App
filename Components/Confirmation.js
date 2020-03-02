@@ -59,6 +59,7 @@ class Confirmation extends Component {
                     style={styles.noButtonStyle}
                     activeOpacity={0.5}
                     onPress={() => {
+                      this.setisModalVisible(!this.state.isModalVisible);
                       navigation.navigate('SorryPage', { didUpload: false });
                     }}>
                     <Image
@@ -129,10 +130,17 @@ class Confirmation extends Component {
                   predictionString === 'Ford' ||
                   predictionString === 'Volkswagen'
                     ? 'ModelPrediction'
-                    : 'AR';
-                navigation.navigate(destinationPage, {
-                  predictionMake: predictionString,
-                });
+                    : 'ARPDFOptions';
+                if (destinationPage === 'ModelPrediction') {
+                  navigation.navigate(destinationPage, {
+                    predictionMake: predictionString,
+                  });
+                } else {
+                  navigation.navigate(destinationPage, {
+                    predictionMake: predictionString,
+                    previousPrediction: this.props.previousPrediction,
+                  });
+                }
               }}>
               <Image
                 source={require('assets/yes-icon-white.png')}

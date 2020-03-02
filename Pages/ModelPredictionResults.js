@@ -5,6 +5,7 @@ import Confirmation from 'Components/Confirmation';
 export default function ModelPredictionResults({ route, navigation }) {
   const { imageUrl } = route.params;
   const { prediction } = route.params;
+  const { previousPrediction } = route.params;
 
   console.log('imageUrl = ' + imageUrl);
   return (
@@ -18,6 +19,7 @@ export default function ModelPredictionResults({ route, navigation }) {
         imageUrl={imageUrl}
         prediction={prediction}
         navig={navigation}
+        previousPrediction={previousPrediction}
       />
     </View>
   );
