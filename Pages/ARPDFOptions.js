@@ -17,8 +17,7 @@ export default function ARPDFOptions({ route, navigation }) {
         </View>
         <View style={styles.someView}>
           <Text style={{ fontSize: 35, color: '#3A88E9' }}>
-            {previousPrediction}
-            {predictionMake}
+            {previousPrediction} {predictionMake}
           </Text>
         </View>
         <View style={styles.someOtherView}>
@@ -46,7 +45,7 @@ export default function ARPDFOptions({ route, navigation }) {
           style={styles.buttonViewMain}
           activeOpacity={0.5}
           onPress={() => {
-            navigation.navigate('PDFView');
+            navigation.navigate('PDFView', { model: predictionMake });
             console.log('this works');
           }}>
           <Image
