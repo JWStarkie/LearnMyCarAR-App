@@ -2,8 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import ViewPager from '@react-native-community/viewpager';
 import Dots from 'react-native-dots-pagination';
-import { useNavigation } from '@react-navigation/native';
-import { StatusBar, Image, StyleSheet, Button, View, Text } from 'react-native';
+import { Image, StyleSheet, Button, View, Text } from 'react-native';
 import logo from 'assets/icon.png';
 
 export default function Home({ navigation }) {
@@ -32,7 +31,6 @@ class TutorialSlider extends Component {
   render() {
     return (
       <View style={styles.pageView}>
-        <StatusBar hidden={true} />
         <View style={styles.headerSpace}>
           <Image source={logo} style={{ height: 150, width: 150 }} />
         </View>
